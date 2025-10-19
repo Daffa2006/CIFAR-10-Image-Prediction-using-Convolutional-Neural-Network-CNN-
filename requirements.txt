@@ -1,6 +1,6 @@
 streamlit
-tensorflow==2.17.0
-keras==3.3.3
+tensorflow
+keras
 numpy
 pandas
 keras_tuner
