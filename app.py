@@ -38,7 +38,7 @@ with tab1:
     if model_files:
         selected_model_file = st.selectbox("Pilih file model", model_files)
         model_path = os.path.join(MODEL_DIR, selected_model_file)
-        model = tf.keras.load_model(model_path)
+        model = tf.keras.models.load_model(model_path)
     else:
         st.warning("Tidak ada file model yang ditemukan saat ini. Silakan latih model terlebih di lokal lalu diupload di direktori model dan jalankan perintah git commit")
 
