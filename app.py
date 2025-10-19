@@ -17,8 +17,6 @@ MODEL_DIR = './model'
 if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR)
 
-import streamlit as st
-
 tab1, tab2 = st.tabs(["Main", "Group Information"])
 
 with tab1:
