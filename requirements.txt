@@ -3,3 +3,4 @@ tensorflow
 numpy
 pandas
 keras_tuner
+matplotlib
