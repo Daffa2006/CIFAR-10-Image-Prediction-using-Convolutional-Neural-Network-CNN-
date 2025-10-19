@@ -40,7 +40,7 @@ with tab1:
     # Mode: Gunakan Model yang Disimpan
     # -------------------------------
     if mode == "Gunakan Model yang Disimpan":
-        st.info("Gunakan model yang sudah tersimpan untuk prediksi gambar.")
+        st.text("Gunakan model yang sudah tersimpan untuk prediksi gambar.")
 
         # Pilih file model yang sudah tersimpan
         model_files = [f for f in os.listdir(MODEL_DIR) if f.endswith('.keras')]
