@@ -42,41 +42,43 @@ with tab1:
     else:
         st.warning("Tidak ada file model yang ditemukan saat ini. Silakan latih model terlebih di lokal lalu diupload di direktori model dan jalankan perintah git commit")
 
+
     # Upload gambar untuk prediksi
-    uploaded_file = st.file_uploader("Unggah gambar (64x64 RGB)", type=["png", "jpg", "jpeg"])
-    if uploaded_file and model is not None:
-        img = Image.open(uploaded_file).convert('RGB')
-        st.image(img, caption="Gambar yang diunggah", use_column_width=True)
+    if model_files:
+        uploaded_file = st.file_uploader("Unggah gambar (64x64 RGB)", type=["png", "jpg", "jpeg"])
+        if uploaded_file and model is not None:
+            img = Image.open(uploaded_file).convert('RGB')
+            st.image(img, caption="Gambar yang diunggah", use_column_width=True)
 
-        # Preprocessing
-        img = img.resize((64,64))
-        img_array = image.img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0)
-        img_array = img_array / 255.0
+            # Preprocessing
+            img = img.resize((64,64))
+            img_array = image.img_to_array(img)
+            img_array = np.expand_dims(img_array, axis=0)
+            img_array = img_array / 255.0
 
-        # Prediksi
-        pred = model.predict(img_array)
-        pred_probs = pred[0]
+            # Prediksi
+            pred = model.predict(img_array)
+            pred_probs = pred[0]
 
-        # Top 3 prediksi
-        top3_indices = pred_probs.argsort()[-3:][::-1]
-        st.subheader("Top 3 Prediksi:")
-        for i, idx in enumerate(top3_indices):
-            st.write(f"{i+1}. {cifar10_classes[idx]} - Confidence: {pred_probs[idx]:.2f}")
+            # Top 3 prediksi
+            top3_indices = pred_probs.argsort()[-3:][::-1]
+            st.subheader("Top 3 Prediksi:")
+            for i, idx in enumerate(top3_indices):
+                st.write(f"{i+1}. {cifar10_classes[idx]} - Confidence: {pred_probs[idx]:.2f}")
 
-        # Peringatan jika confidence rendah
-        threshold = 0.5
-        if pred_probs[top3_indices[0]] < threshold:
-            st.warning("⚠️ Model kurang yakin. Gambar mungkin bukan salah satu kelas CIFAR-10.")
+            # Peringatan jika confidence rendah
+            threshold = 0.5
+            if pred_probs[top3_indices[0]] < threshold:
+                st.warning("⚠️ Model kurang yakin. Gambar mungkin bukan salah satu kelas CIFAR-10.")
 
-        # Visualisasi distribusi probabilitas
-        st.subheader("Distribusi Probabilitas 10 Kelas")
-        df = pd.DataFrame({"Class": cifar10_classes, "Probability": pred_probs}).sort_values("Probability", ascending=True)
-        fig, ax = plt.subplots()
-        ax.barh(df["Class"], df["Probability"], color='skyblue')
-        ax.set_xlabel("Probability")
-        ax.set_title("Prediksi CIFAR-10")
-        st.pyplot(fig)
+            # Visualisasi distribusi probabilitas
+            st.subheader("Distribusi Probabilitas 10 Kelas")
+            df = pd.DataFrame({"Class": cifar10_classes, "Probability": pred_probs}).sort_values("Probability", ascending=True)
+            fig, ax = plt.subplots()
+            ax.barh(df["Class"], df["Probability"], color='skyblue')
+            ax.set_xlabel("Probability")
+            ax.set_title("Prediksi CIFAR-10")
+            st.pyplot(fig)
 
 with tab2:
     st.header("Group Information")
