@@ -5,18 +5,6 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 import keras_tuner as kt
-import os
-# from google.colab import drive
-
-# -------------------------
-# Mount Google Drive
-# -------------------------
-drive.mount('/content/drive')
-# save_dir_drive = "/content/drive/MyDrive"
-save_dir_colab = "/content"
-# os.makedirs(save_dir_drive, exist_ok=True)
-os.makedirs(save_dir_colab, exist_ok=True)
-
 
 # -------------------------
 # Preprocessing CIFAR-10
@@ -95,18 +83,8 @@ loss, acc = best_model.evaluate(x_test, y_test)
 print(f"Akurasi terbaik: {acc:.4f}")
 
 # -------------------------
-# Simpan model terbaik (2 lokasi)
+# Simpan model terbaik
 # -------------------------
-model_name = "best_model_vgg16_tuned.keras"
-
-# 1️⃣ Simpan di runtime Colab
-save_path_colab = os.path.join(save_dir_colab, model_name)
-best_model.save(save_path_colab)
-print(f"💾 Model tersimpan di runtime Colab: {save_path_colab}")
-
-# 2️⃣ Simpan juga di Google Drive
-# save_path_drive = os.path.join(save_dir_drive, model_name)
-# best_model.save(save_path_drive)
-# print(f"☁️ Model tersimpan di Google Drive: {save_path_drive}")
-
-# print("\n✅ Semua proses selesai. Model aman tersimpan di dua lokasi!")
+best_model_filename = "best_model_vgg16_tuned.keras"
+best_model.save(best_model_filename)
+print(f"Model terbaik tersimpan sebagai: {best_model_filename}")
