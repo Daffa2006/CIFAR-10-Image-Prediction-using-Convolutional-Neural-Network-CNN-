@@ -34,7 +34,7 @@ with tab1:
     st.text("Gunakan model yang sudah tersimpan untuk prediksi gambar.")
 
     # Pilih file model yang sudah tersimpan
-    model_files = [f for f in os.listdir(MODEL_DIR)]
+    model_files = [f for f in os.listdir(MODEL_DIR) if f.endswith('.keras')]
     if model_files:
         selected_model_file = st.selectbox("Pilih file model", model_files)
         model_path = os.path.join(MODEL_DIR, selected_model_file)
