@@ -20,7 +20,6 @@ if not os.path.exists(MODEL_DIR):
 tab1, tab2 = st.tabs(["Main", "Group Information"])
 
 with tab1:
-    st.write("TF version in runtime:", tf.__version__)
     st.header("CIFAR-10 Image Prediction using Convolutional Neural Network (CNN)")
     # Upload gambar untuk prediksi
     st.text('Pastikan image yang diupload termasuk dari 10 kelas CIFAR-10')
